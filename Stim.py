@@ -5,6 +5,8 @@ import os
 from IPython import embed
 
 os.makedirs("GP_rat/stim", exist_ok=True)
+RAT = 5
+POS = 4
 
 rng = np.random.default_rng()
 
@@ -52,6 +54,6 @@ full_stim = np.empty(len(freq_sequence) * 2, dtype=int)
 full_stim[0::2] = 0
 full_stim[1::2] = freq_sequence
 
-np.save("GP_rat/stim/r1_p1_stim_full.npy", full_stim)
-np.save('GP_rat/stim/r1_p1_stim.npy', freq_sequence)
-np.save('GP_rat/stim/r1_p1_dur.npy', elapsed_time)
+np.save(f"GP_rat/stim/r{RAT}_p{POS}_stim_full.npy", full_stim)
+np.save(f'GP_rat/stim/r{RAT}_p{POS}_stim.npy', freq_sequence)
+np.save(f'GP_rat/stim/r{RAT}_p{POS}_dur.npy', elapsed_time)

@@ -16,7 +16,6 @@ def get_data(path, rat, pos):
     OUTPUT
     stim:       array,  stimulus only 2s frequencies
     stim_full:  array,  full stimulus with 0 Hz breaks
-    dur:        float,  duration of recording
 
     neurons:    array,  names of the different neurons
     spikes:     array,  timestamps of the spikes of the neurons
@@ -29,12 +28,11 @@ def get_data(path, rat, pos):
     # count fragments -> should be 1
 
     # Stimulus data
-    stim = np.load(f"{path}/stim/r{rat}_p{pos}_stim.npy")
+    stim_npy = np.load(f"{path}/stim/r{rat}_p{pos}_stim.npy")
     stim_full = np.load(f"{path}/stim/r{rat}_p{pos}_stim_full.npy")
-    dur = np.load(f"{path}/stim/r{rat}_p{pos}_dur.npy")
 
     # Dataset
-    nex = Reader().ReadNexFile(f"{path}/data/r{rat}_p{pos}_test.nex")
+    nex = Reader().ReadNexFile(f"{path}/data/r{rat}_p{pos}.nex")
 
     if len(nex["ad64"].FragmentCounts()) == 1:
         print("1 Fragment :)")
@@ -50,9 +48,8 @@ def get_data(path, rat, pos):
     stim_t  = stim.FragmentTimestamps()[0] + np.arange(len(stim_vals)) / stim_sr
 
     data = {
-        "stim": stim,
-        "stim_full": stim_full,
-        "duration": dur,
+        "stim_npy": stim_npy,
+        "stim_npy_full": stim_full,
         "neurons": neuronnames,
         "spikes": spikes,
         "stim_vals": stim_vals,
